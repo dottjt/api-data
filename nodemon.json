@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["data", "migrations", "seeds", "seedsData", "nginx"]
+}

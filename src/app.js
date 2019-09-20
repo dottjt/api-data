@@ -26,4 +26,16 @@ const resolvers = {
 
 const server = new GraphQLServer({ typeDefs, resolvers });
 
-server.start(() => console.log('Server is running on localhost:4000'));
+const options = {
+  port: 2002,
+  endpoint: '/graphql',
+  subscriptions: '/subscriptions',
+  playground: '/playground',
+  cors: {
+    credentials: true,
+    preflightContinue: true,
+    origin: ["https://pokeml.com", "http://localhost:3000", "http://localhost:4000"] // your frontend url.
+  }
+};
+
+server.start(options, () => console.log('Server is running on localhost:2002'));

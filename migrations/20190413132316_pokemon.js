@@ -6,8 +6,9 @@ exports.up = async function(knex) {
   if (!hasDbUserTable) {
     return knex.schema.createTable('pokemon', function(table) {
       table.uuid('id').notNullable().unique().primary();
+      table.string('pokemon_id').notNullable();
       table.string('name').notNullable().unique();
-      table.string('sprite').notNullable().unique();
+      table.string('sprite').notNullable();
       table.timestamps(true, true);
     });
   }

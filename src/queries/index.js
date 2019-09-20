@@ -1,13 +1,14 @@
 const knex = require('../db/knex');
 
-const searchPokemon = (_, { pokemonName }) => {
+const searchPokemon = async (_, { pokemonName }) => {
   const pokemonList =
     await knex('pokemon')
-      .where('name', 'ilike', `${pokemonName}%`)
+      .where('name', 'ilike', `%${pokemonName}%`)
+      .orderBy('name', 'desc')
       .limit('10')
-      .select('name', 'sprite');
+      .select('id', 'name', 'sprite');
 
-  return pokemonList;
+  return pokemonList.sort();
 };
 
 module.exports = {
