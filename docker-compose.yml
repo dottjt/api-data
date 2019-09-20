@@ -1,8 +1,8 @@
 version: '3'
 services:
-  nfd-discord:
-    image: dottjt/nfd-discord
-    container_name: 'nfd-discord'
+  pokemon-api:
+    image: dottjt/pokemon-api
+    container_name: 'pokemon-api'
     ports:
       - 2000:2000
       - 2001:2001
@@ -12,15 +12,15 @@ services:
     # networks:
     #   - docker-network
     # depends_on:
-    #   - nfd-discord-postgres
+    #   - pokemon-api-postgres
 
-  # nfd-discord-postgres:
+  # pokemon-api-postgres:
   #   image: postgres:alpine
-  #   container_name: 'nfd-discord-postgres'
+  #   container_name: 'pokemon-api-postgres'
   #   ports:
   #     - 5432:2345
   #   volumes:
-  #     - ./nfd-discord-postgres:/var/lib/postgresql/data:rw
+  #     - ./pokemon-api-postgres:/var/lib/postgresql/data:rw
   #   restart: always
   #   env_file:
   #     - .env

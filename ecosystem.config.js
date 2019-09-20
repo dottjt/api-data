@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: 'nfd-discord-pm2',
+    name: 'pokemon-api-pm2',
     script: 'src/index.js',
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/

@@ -16,11 +16,11 @@ env:
   - SERVER_IP_ADDRESS=198.199.67.180
 before_script:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker pull dottjt/nfd-discord || true
+- docker pull dottjt/pokemon-api || true
 script:
 - ls -a
 - echo "$AWS_ACCESS_KEY"
-- docker-compose build nfd-discord
+- docker-compose build pokemon-api
 after_script:
 - docker images
 before_deploy:
@@ -32,7 +32,7 @@ before_deploy:
 - ssh-add ./deploy_key
 deploy:
 - provider: script
-  script: docker push dottjt/nfd-discord
+  script: docker push dottjt/pokemon-api
   on:
     branch: master
 - provider: script

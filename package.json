@@ -6,6 +6,7 @@
   "author": "Julius Reade <julius.reade@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node src/app.js",
     "transform": "node ./transform.js"
   },
   "dependencies": {

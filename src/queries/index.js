@@ -1,7 +1,15 @@
 const knex = require('../db/knex');
 
 const searchPokemon = (_, { pokemonName }) => {
-  const db_user = await knex('db_users').where('discord_id', discordUser.id).first();
+  const pokemonList =
+    await knex('pokemon')
+      .where('name', 'ilike', `${pokemonName}%`)
+      .limit('10')
+      .select('name', 'sprite');
 
-  // place a limit on it as well. 
+  return pokemonList;
 };
+
+module.exports = {
+  searchPokemon,
+}
