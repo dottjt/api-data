@@ -5,7 +5,7 @@ const shell = require('shelljs');
 
 const transform = () => {
   try {
-    const pokemonFolders = './api/v2/pokemon';
+    const pokemonFolders = './data/api/v2/pokemon';
 
     const data = [];
     let seedsString = '';
@@ -15,14 +15,14 @@ const transform = () => {
 
       const pokemonObjectRaw = fse.readJsonSync(`${pokemonFolders}/${pokemonFolder}/index.json`);
       const pokemonObject = createPokemonJSONObject(pokemonObjectRaw);
-      const pokemonSeedObject = createPokemonSeedObject()
+      const pokemonSeedObject = createPokemonSeedObject(pokemonObjectRaw)
 
       seedsString += pokemonSeedObject;
       data.push(pokemonObject);
     });
 
-    fse.outputJSONSync('../seedsData/pokemonSeedsData.js', templateModuleExports(seedsString));
-    fse.outputJSONSync('new/output.json', data);
+    fse.outputJSONSync('./seedsData/pokemonSeedsData.js', templateModuleExports(seedsString));
+    fse.outputJSONSync('./data/new/output.json', data);
   } catch (error) {
     throw new Error('le error ' + error);
   }

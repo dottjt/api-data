@@ -6,8 +6,8 @@
   "author": "Julius Reade <julius.reade@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node src/app.js",
-    "transform": "node ./transform.js"
+    "start": "node ./src/app.js",
+    "generate": "node ./data/generate.js"
   },
   "dependencies": {
     "dotenv": "^8.1.0",
