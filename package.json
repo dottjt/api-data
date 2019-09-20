@@ -1,0 +1,16 @@
+{
+  "name": "api-data",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/dottjt/api-data.git",
+  "author": "Julius Reade <julius.reade@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "transform": "node ./transform.js"
+  },
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "shelljs": "^0.8.3",
+    "uuid": "^3.3.3"
+  }
+}
