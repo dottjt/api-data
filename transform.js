@@ -4,21 +4,26 @@ const uuidv4 = require('uuid/v4');
 const shell = require('shelljs');
 
 const transform = () => {
-  const pokemonFolders = './data/api/v2/pokemon';
+  try {
+    const pokemonFolders = './data/api/v2/pokemon';
 
-  const pokemonCollection = [];
+    const pokemonCollection = [];
 
-  shell.ls(pokemonFolders).forEach((pokemonFolder) => {
-    console.log()
-    const pokemonObjectRaw = fse.readJsonSync(`${pokemonFolders}/${pokemonFolder}/index.json`);
-    const pokemonObject = createPokemonObject(pokemonObjectRaw);
+    shell.ls(pokemonFolders).forEach((pokemonFolder) => {
+      if (pokemonFolder === 'index.json') return
+      console.log(pokemonFolder)
+      const pokemonObjectRaw = fse.readJsonSync(`${pokemonFolders}/${pokemonFolder}/index.json`);
+      const pokemonObject = createPokemonObject(pokemonObjectRaw);
 
-    pokemonCollection.push(pokemonObject);
-  });
+      pokemonCollection.push(pokemonObject);
+    });
 
-  const data = pokemonCollection;
+    const data = pokemonCollection;
 
-  fse.outputJSONSync('data-new/output.json', data);
+    fse.outputJSONSync('data-new/output.json', data);
+  } catch (error) {
+    throw new Error('le error ' + error);
+  }
 };
 
 const createPokemonObject = (pokemonObjectRaw) => ({

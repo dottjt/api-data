@@ -9,7 +9,17 @@
     "transform": "node ./transform.js"
   },
   "dependencies": {
+    "dotenv": "^8.1.0",
+    "eslint": "^6.4.0",
     "fs-extra": "^8.1.0",
+    "graphql": "^14.5.6",
+    "graphql-tag": "^2.10.1",
+    "graphql-yoga": "^1.18.3",
+    "knex": "^0.19.4",
+    "mongodb": "^3.3.2",
+    "pg": "^7.12.1",
+    "pm2": "^3.5.1",
+    "require-graphql-file": "^1.0.1",
     "shelljs": "^0.8.3",
     "uuid": "^3.3.3"
   }

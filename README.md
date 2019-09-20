@@ -1,3 +1,8 @@
+# ReadeUses
+
+graphql graphql-tag graphql-yoga knex pg pm2 require-graphql-file dotenv
+
+
 [![CircleCI](https://circleci.com/gh/PokeAPI/api-data.svg?style=shield)](https://circleci.com/gh/PokeAPI/api-data)
 
 # PokeAPI Data
