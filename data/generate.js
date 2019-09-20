@@ -28,19 +28,12 @@ const transform = () => {
   }
 };
 
-const templateModuleExports = (seedsString) => `
-  module.exports = [
-    ${seedsString}
-  ];
-`;
+const templateModuleExports = (seedsString) => `module.exports = [${seedsString}];`;
 
 const createPokemonJSONObject = (pokemonObjectRaw) => ({
   id: pokemonObjectRaw.id,
   name: pokemonObjectRaw.name,
   sprite: pokemonObjectRaw.sprites.front_default,
-  // types: pokemonObjectRaw.types.map(type => ({
-  //   name: type.type.name
-  // }))
 });
 
 const createPokemonSeedObject = (pokemonObjectRaw) => (

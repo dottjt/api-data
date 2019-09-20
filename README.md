@@ -3,6 +3,12 @@
 graphql graphql-tag graphql-yoga knex pg pm2 require-graphql-file dotenv
 
 
+// migrate
+knex migrate:latest
+
+// run seed
+knex seed:run
+
 [![CircleCI](https://circleci.com/gh/PokeAPI/api-data.svg?style=shield)](https://circleci.com/gh/PokeAPI/api-data)
 
 # PokeAPI Data
