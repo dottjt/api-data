@@ -8,9 +8,7 @@
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "source .env && nodemon ./src/server.js",
-    
     "generate": "node ./data/generate.js",
-
     "full": "source .env && yarn rollback && yarn migrate && yarn seed",
     "rollback": "source .env && npx knex migrate:rollback",
     "migrate": "source .env && npx knex migrate:latest",
@@ -25,7 +23,11 @@
     "graphql-tag": "^2.10.1",
     "graphql-yoga": "^1.18.3",
     "knex": "^0.19.4",
+    "mjml": "^4.5.0",
     "mongodb": "^3.3.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-oauth2": "^1.5.0",
     "pg": "^7.12.1",
     "pm2": "^3.5.1",
     "require-graphql-file": "^1.0.1",

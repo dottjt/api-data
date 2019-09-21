@@ -1,4 +1,5 @@
 const knex = require('./db/knex');
+// const passport = require('passport');
 
 const saveAnnotation = async (_, { annotation }) => {
   try {
