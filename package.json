@@ -6,11 +6,18 @@
   "author": "Julius Reade <julius.reade@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/app.js",
-    "dev": "nodemon ./src/app.js",
-    "generate": "node ./data/generate.js"
+    "start": "node ./src/server.js",
+    "dev": "source .env && nodemon ./src/server.js",
+    
+    "generate": "node ./data/generate.js",
+
+    "full": "source .env && yarn rollback && yarn migrate && yarn seed",
+    "rollback": "source .env && npx knex migrate:rollback",
+    "migrate": "source .env && npx knex migrate:latest",
+    "seed": "source .env && npx knex seed:run"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "eslint": "^6.4.0",
     "fs-extra": "^8.1.0",
