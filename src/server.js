@@ -1,59 +1,15 @@
 require('dotenv').config()
 
 const { GraphQLServer } = require('graphql-yoga');
-// const passport = require('passport');
-// const OAuth2Strategy = require('passport-oauth2');
-// const LocalStrategy = require('passport-local');
+const passport = require('passport');
 
-// Authentication
-// passport.use(new LocalStrategy(
-//   async function(username, password, done) {
-//     const user = await knex('user')
-
-//     User.findOne({ username: username }, function (err, user) {
-//       if (err) { return done(err); }
-//       if (!user) { return done(null, false); }
-//       if (!user.verifyPassword(password)) { return done(null, false); }
-//       return done(null, user);
-//     });
-//   }
-// ));
-
-// passport.use(new OAuth2Strategy({
-//   authorizationURL: 'https://www.example.com/oauth2/authorize',
-//   tokenURL: 'https://www.example.com/oauth2/token',
-//   clientID: EXAMPLE_CLIENT_ID,
-//   clientSecret: EXAMPLE_CLIENT_SECRET,
-//   callbackURL: "http://localhost:3000/auth/example/callback"
-// },
-// function(accessToken, refreshToken, profile, cb) {
-//   const doesUserExist = knex('user')
-//   await knex('user')
-
-//   User.findOrCreate({ exampleId: profile.id }, function (err, user) {
-//     return cb(err, user);
-//   });
-// }
-// ));
-
-const { 
-  getPokemon,
-  getImages,
-} = require('./queries');
-
-const { 
-  saveAnnotation,
-} = require('./mutations');
-
-// const {
-//   loginUser,
-//   logoutUser,
-//   createUser,
-//   verifyUser,
-//   resetPasswordUser,
-// } = require('./authentication')
+const { getPokemon, getImages } = require('./queries');
+const { saveAnnotation } = require('./mutations');
+// const { loginUser, logoutUser, createUser, verifyUser, resetPasswordUser } = require('./authentication')
 
 const typeDefs = require('./typeDefs');
+
+const { membersOnly } = require('./passport');
 
 const resolvers = {
   Query: {
@@ -71,9 +27,55 @@ const resolvers = {
   }
 };
 
-const server = new GraphQLServer({ typeDefs, resolvers });
+// const context = ({ req }) => {
+//   const { user } = req
+//   if (!user || user.role !== 'MEMBER') {
+//     throw new AuthenticationError('No Access!')
+//   } else {
+//     return {
+//       user: req.user,
+//     }
+//   }
+// }
 
-// server.express.use();
+const context = async ({ req }) => {
+  let authToken = null;
+  let currentUser = null;
+
+    // try {
+    //   authToken = req.headers[HEADER_NAME];
+
+    //   if (authToken) {
+    //     currentUser = await tradeTokenForUser(authToken);
+    //   }
+    // } catch (e) {
+    //   console.warn(`Unable to authenticate using auth token: ${authToken}`);
+    // }
+
+  return {
+    authToken,
+    currentUser,
+  };
+}
+
+const knex = require('../db/knex');
+const server = new GraphQLServer({ typeDefs, resolvers, context });
+// NOTE: See if there is a applyMiddleware argument. 
+server.express.use(passport.initialize());
+server.express.use(passport.session());
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(async function(id, cb) {
+  try {
+    const user = await knex('user').where('id', id).select();
+    cb(null, user);  
+  } catch(error) {
+    cb(error, null);  
+  }
+});
 
 const options = {
   port: 5001,

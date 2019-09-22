@@ -42,7 +42,8 @@ module.exports = `
   }
 
   input AnnotationInput {
-    pokemon_id: String 
+    pokemon_id: ID 
+    user_id: ID
 
     name: String
     stroke: String
@@ -56,6 +57,7 @@ module.exports = `
 
   type Annotation {
     id: ID
+    user: User
     pokemon: Pokemon
 
     name: String

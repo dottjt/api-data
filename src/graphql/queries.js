@@ -1,4 +1,4 @@
-const knex = require('./db/knex');
+const knex = require('../db/knex');
 
 const getImages = async (/* _, {} */) => {
   const images = await knex('image').select();

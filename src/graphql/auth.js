@@ -1,12 +1,14 @@
-const knex = require('./db/knex');
+const knex = require('../db/knex');
 // const passport = require('passport');
 // const nodemailer = require("nodemailer");
 
 // LOGIN / LOGOUT
-const loginUser = async (_, { user }) => {
+const loginUser = async (_, { email, password  }, { user }) => {
   try {
+    if (user) return user;
 
-    await knex('user').insert(user);
+    // NOTE: How do I authenticate a logged in user? 
+    // const user = await knex('user').where('email', email).insert(user);
     
   } catch (error) {
     throw new Error('loginUser - le error - ' + error);
