@@ -16,6 +16,8 @@ const redditUrls = [
   'https://www.reddit.com/r/PokemonSwordAndShield/',
 ];
 
+// https://www.pinterest.com.au/katwomanjulie/pokemon-pictures/
+
 module.exports = {
   redditUrls,
 };

@@ -1,4 +1,6 @@
+
 const puppeteer = require('puppeteer');
+const cheerio = require('cheerio');
 
 const { redditUrls } = require('./urls');
 
@@ -11,15 +13,16 @@ const redditImageScrapper = () => {
   /* Run javascript inside of the page */
   let data = await page.evaluate(() => {
 
-    let title = document.querySelector('div[class="title_wrapper"] > h1').innerText;
-    let rating = document.querySelector('span[itemprop="ratingValue"]').innerText;
-    let ratingCount = document.querySelector('span[itemprop="ratingCount"]').innerText;
-
+    // $('h2.title').text('Hello there!')
+    // $('h2').addClass('welcome')
+    
+    const $ = cheerio.load(page.content());
+    
+    // $.html()
+    
     /* Returning an object filled with the scraped data */
     return {
-      title,
-      rating,
-      ratingCount
+  
     }
 
   });

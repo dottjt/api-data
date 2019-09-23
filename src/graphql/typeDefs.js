@@ -16,7 +16,7 @@ module.exports = `
   }
 
   type Mutation {
-    saveAnnotation(annotation: AnnotationInput): Boolean
+    saveAnnotation(annotationInput: AnnotationInput): Boolean
   }
 
   type AuthPayload {
@@ -35,19 +35,14 @@ module.exports = `
 
   type Provider {
     provider: String
+    user: String
     id: ID
-  }
-
-  type User {
-    _id: ID!
-    username: String
   }
 
   type Provider {
     provider: String
     id: ID
   }
-
 
   type Image {
     id: ID
@@ -60,6 +55,7 @@ module.exports = `
   }
 
   input AnnotationInput {
+    image_id: ID
     pokemon_id: ID
     user_id: ID
 
@@ -76,6 +72,7 @@ module.exports = `
   type Annotation {
     id: ID
     user: User
+    image: Image
     pokemon: Pokemon
 
     name: String
