@@ -3,9 +3,10 @@ const knex = require('../db/knex');
 
 const saveAnnotation = async (_, { annotation }) => {
   try {
+    const annotation = 
     await knex('annotation').insert(annotation);
 
-  // maybe I need to insert or make changes to an image.
+
     
   } catch (error) {
     throw new Error('saveAnnotation - le error - ' + error);

@@ -1,82 +1,52 @@
-const knex = './db/knex';
 const passport = require('passport');
 
-// const LocalStrategy = require('passport-local');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const DiscordStrategy = require('passport-discord').Strategy;
 
-function setupGoogleStrategy() {
-  const provider = 'google';
+const { findOrCreate } = require('./methods/user');
+
+const setupGoogleStrategy = () => {
   const passportConfig = {
     callbackURL: '/auth/google/redirect',
     clientID: process.env.GOOGLE_CLIENTID,
     clientSecret: process.env.GOOGLE_CLIENTSECRET,
   }
-
+  const provider = 'google';
   passport.use(
     new GoogleStrategy(passportConfig, async function (accessToken, refreshToken, profile, done) {
       try {
         const { id } = profile;
         const email = profile.emails[0].value;
 
-        const user = await knex('user').where('email', email).select('id');
-
-        if (user) {
-          done(null, user);
-        } else {
-          const user = await knex('user').insert({ id, email, provider, profile });
-          done(null, user);
-        }
+        const user = await findOrCreate(email, id, provider, profile)
+        done(null, user);
       } catch (error) {
-        done(error)
+        done(error);
       }
     })
   )
-}
+};
 
-function setupDiscordStrategy() {
+const setupDiscordStrategy = () => {
   const passportConfig = {
     callbackURL: '/auth/discord/redirect',
     clientID: process.env.DISCORD_CLIENTID,
     clientSecret: process.env.DISCORD_CLIENTSECRET,
   }
-
   const provider = 'discord';
-
   passport.use(
     new DiscordStrategy(passportConfig, async function (accessToken, refreshToken, profile, done) {
       try {
         const { email, id } = profile;
 
-        const user = await knex('user').where('email', email).select('id');
-
-        if (user) {
-          done(null, user);
-        } else {
-          const user = await knex('user').insert({ id, email, provider, profile });
-          done(null, user);
-        }
+        const user = await findOrCreate(email, id, provider, profile)
+        done(null, user);
       } catch (error) {
-        done(error)
+        done(error);
       }
     })
   )
-}
-
-// function serializePassport() {
-//   passport.serializeUser(function(user, cb) {
-//     cb(null, user.id);
-//   });
-
-//   passport.deserializeUser(async function(id, cb) {
-//     try {
-//       const user = await knex('user').where('id', id).select();
-//       cb(null, user);
-//     } catch(error) {
-//       cb(error, null);
-//     }
-//   });
-// }
+};
 
 module.export = {
   setupGoogleStrategy,
