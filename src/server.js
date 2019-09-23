@@ -12,7 +12,7 @@ server.express.use(passport.initialize());
 server.express.use(passport.session());
 
 server.app.use(cookieParser());
-server.app.use(process.env.GRAPHQL_ENDPOINT, jwtParser, handleJwtError);
+server.app.use('/graphql', jwtParser, handleJwtError);
 
 server.app.use('/auth', authRoutes);
 
