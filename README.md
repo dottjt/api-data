@@ -4,6 +4,18 @@ graphql graphql-tag graphql-yoga knex pg pm2 require-graphql-file dotenv
 
 passport passport-facebook-token passport-google-token jsonwebtoken
 
+
+passport-google-oauth2 passport-discord cookie-parser express-jwt
+
+
+<!-- A great example. -->
+git clone https://github.com/antoniojps/graphql-authentication.git
+
+
+
+http://abashev.com/articles/oauth2-refresh-tokens-in-passport-js/
+passport-oauth2-refresh
+
 // migrate
 knex migrate:latest
 

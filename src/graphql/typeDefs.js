@@ -1,5 +1,5 @@
 // signup(email: String!, password: String!): AuthPayload
-// login(email: String!, password: String!): AuthPayload  
+// login(email: String!, password: String!): AuthPayload
 
 // loginUser(email: String!, password: String!): AuthPayload
 // logoutUser(): AuthPayload
@@ -23,14 +23,32 @@ module.exports = `
     token: String
     user: User
   }
-  
+
   type User {
     id: ID!
     display_name: String!
     email: String!
     password: String!
+    providers: [Provider]
+    admin: Boolean
   }
-  
+
+  type Provider {
+    provider: String
+    id: ID
+  }
+
+  type User {
+    _id: ID!
+    username: String
+  }
+
+  type Provider {
+    provider: String
+    id: ID
+  }
+
+
   type Image {
     id: ID
     url: String
@@ -42,13 +60,13 @@ module.exports = `
   }
 
   input AnnotationInput {
-    pokemon_id: ID 
+    pokemon_id: ID
     user_id: ID
 
     name: String
     stroke: String
     key: String
-    
+
     x: Int
     y: Int
     width: Int
@@ -63,7 +81,7 @@ module.exports = `
     name: String
     stroke: String
     key: String
-    
+
     x: Int
     y: Int
     width: Int
