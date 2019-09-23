@@ -4,8 +4,7 @@ graphql graphql-tag graphql-yoga knex pg pm2 require-graphql-file dotenv
 
 passport passport-facebook-token passport-google-token jsonwebtoken
 
-
-passport-google-oauth2 passport-discord cookie-parser express-jwt
+passport-google-oauth20 passport-discord cookie-parser express-jwt 
 
 
 <!-- A great example. -->

@@ -2,7 +2,7 @@ require('dotenv').config()
 const { GraphQLServer } = require('graphql-yoga');
 const { setupGoogleStrategy, setupDiscordStrategy } = require('./passport');
 
-const { passport, cookieParser, jwtParser, handleJwtError } = require('./../middleware/middleware');
+const { passport, cookieParser, jwtParser, handleJwtError } = require('./middleware');
 const { typeDefs, resolvers, context } = './serverOptions';
 const authRoutes = './router/auth';
 

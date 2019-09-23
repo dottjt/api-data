@@ -14,6 +14,8 @@ exports.up = async function(knex) {
       table.integer('width').notNullable();
       table.integer('height').notNullable();
       table.uuid('image_id').references('image.id');
+      table.uuid('pokemon_id').references('pokemon.id');
+      table.uuid('user_id').references('user.id');
 
       table.timestamps(true, true);
     });
