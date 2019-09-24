@@ -1,13 +1,13 @@
 const typeDefs = `
   type Query {
     getPokemon(pokemonName: String): [Pokemon]
-    
+
     getImages: [Image]
     getNewImage(image_id: String): Image
   }
 
   type Mutation {
-    saveAnnotation(annotationInput: AnnotationInput): Boolean
+    saveAnnotation(inputAnnotations: [AnnotationInput]): Boolean
   }
 
   type AuthPayload {
@@ -41,11 +41,13 @@ const typeDefs = `
   }
 
   input AnnotationInput {
-    image_id: ID
     pokemon_id: ID
+    human_id: ID
+    image_id: ID
     user_id: ID
 
     name: String
+    type: String
     stroke: String
     key: String
 

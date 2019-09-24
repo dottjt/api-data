@@ -13,31 +13,26 @@ const getImages = async (/* _, {} */) => {
 const getNewImage = async (_, { image_id }) => {
   if (image_id) {
     const image = await knex('image').where('id', image_id).first();
-    console.log(image);
     return image;
+  } else {
+    const image =
+      await knex('image')
+        .leftJoin('annotation', 'annotation.image_id', 'image.id')
+        .where('annotation.image_id', null)
+        .first('image.*');
+    return image; 
   }
-
-  const image =
-    await knex('image')
-      .leftJoin('annotation', 'annotation.image_id', 'image.id')
-      .where('annotation.image_id', null)
-      .first('image.*')
-
-  return image;
 };
 
-// TODO
-// const getImageGallery = async (/* _, {} */) => {
+const getImageUserImageSet = async (/* _, {} */) => {
+  const images =
+    await knex('image')
+      .leftJoin('annotation', 'annotation.user_id', 'image.id')
+      .leftJoin('user', 'user.id', 'annotation.user_id')
+      .first('image.*')
 
-//   const images =
-//   await knex('image').select()
-//     .leftJoin('annotation', 'annotation.image_id', 'image.id')
-//     .where('annotation', '==', 0)
-//     .first()
-
-//   return images;
-// };
-
+  return images;
+};
 
 const getPokemon = async (_, { pokemonName }) => {
   if (pokemonName === '') return [];
@@ -55,5 +50,7 @@ const getPokemon = async (_, { pokemonName }) => {
 module.exports = {
   getImages,
   getNewImage,
+  getImageUserImageSet,
+
   getPokemon,
 }

@@ -1,11 +1,12 @@
 const knex = require('../db/knex');
-// const passport = require('passport');
 
-const saveAnnotation = async (_, { annotationInput }) => {
+const saveAnnotation = async (_, { inputAnnotations }) => {
   try {
-    const annotation = await knex('annotation').insert(annotation).returning('*');
-
-    return annotation;
+    console.log('start saveAnnotation');
+    for (let anno of inputAnnotations) {
+      const annotation = await knex('annotation').insert(anno).returning('*');
+      console.log(annotation);
+    }
   } catch (error) {
     throw new Error('saveAnnotation - le error - ' + error);
   }
