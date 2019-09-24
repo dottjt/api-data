@@ -1,5 +1,5 @@
 
-// table - user
+// table - provider
 
 exports.up = async function(knex) {
   const hasDbUserTable = await knex.schema.hasTable('provider');

@@ -1,18 +1,9 @@
-// signup(email: String!, password: String!): AuthPayload
-// login(email: String!, password: String!): AuthPayload
-
-// loginUser(email: String!, password: String!): AuthPayload
-// logoutUser(): AuthPayload
-
-// createUser(email: String!, password: String!): AuthPayload
-
-// verifyUser(): AuthPayload
-// resetPasswordUser(): AuthPayload
-
-module.exports = `
+const typeDefs = `
   type Query {
     getPokemon(pokemonName: String): [Pokemon]
+    
     getImages: [Image]
+    getNewImage(image_id: String): Image
   }
 
   type Mutation {
@@ -35,12 +26,7 @@ module.exports = `
 
   type Provider {
     provider: String
-    user: String
-    id: ID
-  }
-
-  type Provider {
-    provider: String
+    user_id: ID
     id: ID
   }
 
@@ -85,8 +71,9 @@ module.exports = `
     height: Int
   }
 
-  input PokemonInput {
-    pokemon_id: String
+  type Human {
+    id: ID
+    human_id: String
     name: String
     sprite: String
   }
@@ -99,7 +86,20 @@ module.exports = `
   }
 `;
 
+module.exports = typeDefs;
+
 // x1y1: Int
 // x1y2: Int
 // x2y1: Int
 // x2y2: Int
+
+// signup(email: String!, password: String!): AuthPayload
+// login(email: String!, password: String!): AuthPayload
+
+// loginUser(email: String!, password: String!): AuthPayload
+// logoutUser(): AuthPayload
+
+// createUser(email: String!, password: String!): AuthPayload
+
+// verifyUser(): AuthPayload
+// resetPasswordUser(): AuthPayload

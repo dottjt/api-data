@@ -48,7 +48,7 @@ const setupDiscordStrategy = () => {
   )
 };
 
-module.export = {
+module.exports = {
   setupGoogleStrategy,
   setupDiscordStrategy,
 };

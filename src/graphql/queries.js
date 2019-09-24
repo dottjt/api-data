@@ -10,15 +10,34 @@ const getImages = async (/* _, {} */) => {
   return images;
 };
 
-const getImagesWithoutAnnotations = async (/* _, {} */) => {
-  const images =
-    await knex('image').select()
-      .leftJoin('annotation', 'annotation.image_id', 'image.id')
-      .where('annotation', '==', 0)
-      .select()
+const getNewImage = async (_, { image_id }) => {
+  if (image_id) {
+    const image = await knex('image').where('id', image_id).first();
+    console.log(image);
+    return image;
+  }
 
-  return images;
+  const image =
+    await knex('image')
+      .leftJoin('annotation', 'annotation.image_id', 'image.id')
+      .where('annotation.image_id', null)
+      .first('image.*')
+
+  return image;
 };
+
+// TODO
+// const getImageGallery = async (/* _, {} */) => {
+
+//   const images =
+//   await knex('image').select()
+//     .leftJoin('annotation', 'annotation.image_id', 'image.id')
+//     .where('annotation', '==', 0)
+//     .first()
+
+//   return images;
+// };
+
 
 const getPokemon = async (_, { pokemonName }) => {
   if (pokemonName === '') return [];
@@ -35,6 +54,6 @@ const getPokemon = async (_, { pokemonName }) => {
 
 module.exports = {
   getImages,
-  getImagesWithoutAnnotations,
+  getNewImage,
   getPokemon,
 }
