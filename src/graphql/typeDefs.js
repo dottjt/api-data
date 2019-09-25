@@ -19,6 +19,7 @@ const typeDefs = `
     id: ID!
     display_name: String!
     email: String!
+    avatar: String
     password: String!
     providers: [Provider]
     admin: Boolean
