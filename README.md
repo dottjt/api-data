@@ -4,8 +4,10 @@ graphql graphql-tag graphql-yoga knex pg pm2 require-graphql-file dotenv
 
 passport passport-facebook-token passport-google-token jsonwebtoken
 
-passport-google-oauth20 passport-discord cookie-parser express-jwt 
+passport-google-oauth20 passport-discord cookie-parser express-jwt
 
+
+// reddit-pokeml bucket id 2cf9e1356fe464b063d40d1a
 
 <!-- A great example. -->
 git clone https://github.com/antoniojps/graphql-authentication.git
