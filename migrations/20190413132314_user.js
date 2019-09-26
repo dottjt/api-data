@@ -8,7 +8,8 @@ exports.up = async function(knex) {
       table.uuid('id').notNullable().unique().primary();
       table.string('display_name').notNullable();
       table.string('email').notNullable();
-      table.string('password').notNullable();
+      table.string('avatar');
+      table.string('admin');
 
       table.timestamps(true, true);
     });

@@ -1,5 +1,6 @@
 // const { AuthenticationError } = require('apollo-server-express');
 const { 
+  getCurrentUser,
   getPokemon, 
   getImages,
   getNewImage,
@@ -11,6 +12,7 @@ const typeDefs = require('./graphql/typeDefs');
 
 const resolvers = {
   Query: {
+    getCurrentUser,
     getPokemon,
 
     getImages,

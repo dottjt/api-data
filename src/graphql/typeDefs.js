@@ -1,5 +1,6 @@
 const typeDefs = `
   type Query {
+    getCurrentUser: User
     getPokemon(pokemonName: String): [Pokemon]
 
     getImages: [Image]
@@ -20,7 +21,6 @@ const typeDefs = `
     display_name: String!
     email: String!
     avatar: String
-    password: String!
     providers: [Provider]
     admin: Boolean
   }
@@ -52,10 +52,12 @@ const typeDefs = `
     stroke: String
     key: String
 
+    coordinates: [CoordinateInput]
+  }
+
+  input CoordinateInput {
     x: Int
     y: Int
-    width: Int
-    height: Int
   }
 
   type Annotation {
@@ -68,10 +70,12 @@ const typeDefs = `
     stroke: String
     key: String
 
+    coordinates: [Coordinate]
+  }
+
+  type Coordinate {
     x: Int
     y: Int
-    width: Int
-    height: Int
   }
 
   type Human {
@@ -106,3 +110,9 @@ module.exports = typeDefs;
 
 // verifyUser(): AuthPayload
 // resetPasswordUser(): AuthPayload
+
+
+// x: Int
+// y: Int
+// width: Int
+// height: Int

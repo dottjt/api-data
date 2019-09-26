@@ -1,8 +1,9 @@
 const knex = require('../db/knex');
 
-// const getCurrentUser = async (/* _, {} */) => {
-
-// }
+const getCurrentUser = async (_, {}, { user }) => {
+  if (user) return user;
+  return knex('user').first();
+}
 
 const getImages = async (/* _, {} */) => {
   const images = await knex('image').select();
@@ -48,6 +49,7 @@ const getPokemon = async (_, { pokemonName }) => {
 };
 
 module.exports = {
+  getCurrentUser,
   getImages,
   getNewImage,
   getImageUserImageSet,
