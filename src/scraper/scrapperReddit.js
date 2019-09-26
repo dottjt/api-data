@@ -11,31 +11,25 @@ const {
 
 const redditImageScrapper = async (url) => {
 
-  // const browser = await puppeteer.launch();
-  // const page = await browser.newPage();
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-  puppeteer
-    .launch()
-    .then(browser => browser.newPage())
-    .then(page => {
-      return page.goto(url, { waitUntil: 'networkidle0' }).then(function() {
-        return page.content();
-      });
-    })
-    .then(html => {
-      const $ = cheerio.load(html);
+  await page.goto(url), { waitUntil: 'networkidle0' };
 
-      const newsHeadlines = [];
-      $('a[href*="/r/news/comments"] > h2').each(function() {
-        newsHeadlines.push({
-          title: $(this).text(),
-        });
-      });
+  const title = await page.title();
+  console.info(`The title is: ${title}`);
 
-      console.log(newsHeadlines);
-    })
-    .close()
-    .catch(console.error);
+  await page.keyboard.press('Space', { delay: 10 });
+
+  const imageSelector = '';
+
+  // It needs to select items based on a date range.
+
+  const imageURLArray = await page.evaluate((sel) => {
+    return document.querySelector(sel).getAttribute('src').replace('/', '');
+  }, imageSelector);
+
+  await browser.close();
 };
 
 const redditScrapper = () => {
