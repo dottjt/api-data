@@ -1,5 +1,16 @@
 const uuidv4 = require('uuid/v4');
 
+const createImage = (knex, product, merchant) => {
+  return knex('merchants').where('name', merchant).first()
+  .then((merchantRecord) => {
+    return knex('products').insert({
+      name: product.name,
+      price: product.price,
+      merchant_id: merchantRecord.id
+    });
+  });
+};
+
 exports.seed = function(knex) {
   return knex('image').del()
     .then(function () {

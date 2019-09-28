@@ -7,7 +7,6 @@ const getCurrentUser = async (_, {}, { user }) => {
 
 const getImages = async (/* _, {} */) => {
   const images = await knex('image').select();
-
   return images;
 };
 
@@ -23,6 +22,35 @@ const getNewImage = async (_, { image_id }) => {
         .first('image.*');
     return image; 
   }
+};
+
+const doesPokemonExist = async (_, { searchText }) => {
+  const doesPokemonExist =
+    await knex('pokemon')
+      .where('name', 'ilike', `${searchText}%`)
+      .orderBy('name', 'desc')
+      .limit('5')
+      .select('id', 'name');
+  
+  return !!doesPokemonExist;
+}
+
+const getGallerySearch = async (_, { searchText }) => {
+  if(!searchText) {
+    // get 5 random annotations.
+
+  }
+
+  const images =
+    await knex('image')
+      .leftJoin('annotation', 'annotation.image_id', 'image.id')
+      .leftJoin('pokemon', 'pokemon.id', 'annotation.pokemon_id')
+      .leftJoin('coordinate', 'pokemon.annotation')
+      .where('pokemon.name', 'ilike', `${searchText}%`)
+      .limit('5')
+      .select();
+
+  return images;
 };
 
 const getImageUserImageSet = async (/* _, {} */) => {
@@ -52,7 +80,10 @@ module.exports = {
   getCurrentUser,
   getImages,
   getNewImage,
+  getGallerySearch,
+  
   getImageUserImageSet,
 
   getPokemon,
+  doesPokemonExist,
 }

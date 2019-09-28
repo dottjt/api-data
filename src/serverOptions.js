@@ -1,9 +1,13 @@
 // const { AuthenticationError } = require('apollo-server-express');
 const { 
   getCurrentUser,
-  getPokemon, 
+
+  doesPokemonExist,
+  getPokemon,
+  
   getImages,
   getNewImage,
+  getGallerySearch,
 } = require('./graphql/queries');
 const { saveAnnotation } = require('./graphql/mutations');
 // const { loginUser, logoutUser, createUser, verifyUser, resetPasswordUser } = require('./authentication')
@@ -13,10 +17,13 @@ const typeDefs = require('./graphql/typeDefs');
 const resolvers = {
   Query: {
     getCurrentUser,
+    
+    doesPokemonExist,
     getPokemon,
-
+    
     getImages,
     getNewImage,
+    getGallerySearch,
   },
   Mutation: {
     saveAnnotation,

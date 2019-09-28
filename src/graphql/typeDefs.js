@@ -1,10 +1,13 @@
 const typeDefs = `
   type Query {
     getCurrentUser: User
+    
+    doesPokemonExist(searchText: String): Boolean
     getPokemon(pokemonName: String): [Pokemon]
 
     getImages: [Image]
     getNewImage(image_id: String): Image
+    getGallerySearch(searchText: String): [Image]
   }
 
   type Mutation {
