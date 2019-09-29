@@ -37,6 +37,8 @@ exports.up = async function(knex) {
       table.string('name').notNullable().unique();
       table.string('sprite').notNullable();
 
+      table.uuid('user_id').references('user.id');
+
       table.timestamps(true, true);
     });
   }
@@ -79,8 +81,8 @@ exports.up = async function(knex) {
   if (!hasDbCoordinateTable) {
     await knex.schema.createTable('coordinate', function(table) {
       table.uuid('id').notNullable().unique().primary();
-      table.integer('x').notNullable();
-      table.integer('y').notNullable();
+      table.float('x').notNullable();
+      table.float('y').notNullable();
 
       table.uuid('annotation_id').references('annotation.id');
 

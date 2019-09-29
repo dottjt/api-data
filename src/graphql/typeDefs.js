@@ -59,8 +59,8 @@ const typeDefs = `
   }
 
   input CoordinateInput {
-    x: Int
-    y: Int
+    x: Float
+    y: Float
   }
 
   type Annotation {
@@ -77,8 +77,8 @@ const typeDefs = `
   }
 
   type Coordinate {
-    x: Int
-    y: Int
+    x: Float
+    y: Float
   }
 
   type Human {

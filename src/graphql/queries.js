@@ -37,21 +37,44 @@ const doesPokemonExist = async (_, { searchText }) => {
 
 const getGallerySearch = async (_, { searchText, filterQuery }) => {
   if(!searchText) {
-    // get 5 random annotations.
     const images = await knex('image').limit('5').select();
+
+    for (let i = 0; i < images.length; i++) {
+      images[i].annotations = await knex('annotation').where('image_id', images[i].id).select();
+      
+      for (let j = 0; j < images[i].annotations.length; j++) {
+        images[i].annotations[j].coordinates = await knex('coordinate').where('annotation_id', images[i].annotations[j].id).select();
+        images[i].annotations[j].pokemon = await knex('pokemon').where('id', images[i].annotations[j].pokemon_id).first();
+      }
+    }
+
     return images;
   }
 
-  const images =
+  const getApplicableImages =
     await knex('image')
       .leftJoin('annotation', 'annotation.image_id', 'image.id')
-      // .leftJoin('pokemon', 'pokemon.id', 'annotation.pokemon_id')
-      // .leftJoin('coordinate', 'pokemon.annotation')
-      // .where('pokemon.name', 'ilike', `${searchText}%`)
-      // .limit('5')
-      .select();
+      .leftJoin('pokemon', 'pokemon.id', 'annotation.pokemon_id')
+      .where('pokemon.name', 'ilike', `${searchText}%`)
+      .limit('5')
+      .select('image.id');
 
-  return images;
+  if (getApplicableImages.length > 0) {
+    const images = await knex('image').where('id', getApplicableImages.map(img => img.id)).limit('5').select();
+
+    for (let i = 0; i < images.length; i++) {
+      images[i].annotations = await knex('annotation').where('image_id', images[i].id).select();
+      
+      for (let j = 0; j < images[i].annotations.length; j++) {
+        images[i].annotations[j].coordinates = await knex('coordinate').where('annotation_id', images[i].annotations[j].id).select();
+        images[i].annotations[j].pokemon = await knex('pokemon').where('id', images[i].annotations[j].pokemon_id).first();
+      }
+    }
+
+    return images;
+  }
+
+  return [];
 };
 
 const getImageUserImageSet = async (/* _, {} */) => {
