@@ -38,16 +38,17 @@ const doesPokemonExist = async (_, { searchText }) => {
 const getGallerySearch = async (_, { searchText, filterQuery }) => {
   if(!searchText) {
     // get 5 random annotations.
-
+    const images = await knex('image').limit('5').select();
+    return images;
   }
 
   const images =
     await knex('image')
       .leftJoin('annotation', 'annotation.image_id', 'image.id')
-      .leftJoin('pokemon', 'pokemon.id', 'annotation.pokemon_id')
-      .leftJoin('coordinate', 'pokemon.annotation')
-      .where('pokemon.name', 'ilike', `${searchText}%`)
-      .limit('5')
+      // .leftJoin('pokemon', 'pokemon.id', 'annotation.pokemon_id')
+      // .leftJoin('coordinate', 'pokemon.annotation')
+      // .where('pokemon.name', 'ilike', `${searchText}%`)
+      // .limit('5')
       .select();
 
   return images;
