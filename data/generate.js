@@ -21,7 +21,7 @@ const transform = () => {
       data.push(pokemonObject);
     });
 
-    fse.outputFileSync('./seedsData/pokemonSeedsData.js', templateModuleExports(seedsString));
+    fse.outputFileSync('./seedsData/pokemonData.js', templateModuleExports(seedsString));
     fse.outputJSONSync('./data/new/output.json', data);
   } catch (error) {
     throw new Error('le error ' + error);

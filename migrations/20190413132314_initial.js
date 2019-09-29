@@ -20,6 +20,7 @@ exports.up = async function(knex) {
     await knex.schema.createTable('provider', function(table) {
       table.uuid('id').notNullable().unique().primary();
       table.string('provider').notNullable();
+      
       table.uuid('user_id').references('user.id');
 
       table.timestamps(true, true);
@@ -29,7 +30,7 @@ exports.up = async function(knex) {
   // POKEMON
   const hasDbPokemonTable = await knex.schema.hasTable('pokemon');
   if (!hasDbPokemonTable) {
-    return knex.schema.createTable('pokemon', function(table) {
+    await knex.schema.createTable('pokemon', function(table) {
       table.uuid('id').notNullable().unique().primary();
       
       table.string('pokemon_id').notNullable();
@@ -43,7 +44,7 @@ exports.up = async function(knex) {
   // IMAGE
   const hasDbImageTable = await knex.schema.hasTable('image');
   if (!hasDbImageTable) {
-    return knex.schema.createTable('image', function(table) {
+    await knex.schema.createTable('image', function(table) {
       table.uuid('id').notNullable().unique().primary();
 
       table.string('url').notNullable();
@@ -58,7 +59,7 @@ exports.up = async function(knex) {
   // ANNOTATION
   const hasDbAnnotationTable = await knex.schema.hasTable('annotation');
   if (!hasDbAnnotationTable) {
-    return knex.schema.createTable('annotation', function(table) {
+    await knex.schema.createTable('annotation', function(table) {
       table.uuid('id').notNullable().unique().primary();
       table.string('name').notNullable();
       table.string('type').notNullable();
@@ -76,7 +77,7 @@ exports.up = async function(knex) {
   // COORDINATE
   const hasDbCoordinateTable = await knex.schema.hasTable('coordinate');
   if (!hasDbCoordinateTable) {
-    return knex.schema.createTable('coordinate', function(table) {
+    await knex.schema.createTable('coordinate', function(table) {
       table.uuid('id').notNullable().unique().primary();
       table.integer('x').notNullable();
       table.integer('y').notNullable();
@@ -89,10 +90,28 @@ exports.up = async function(knex) {
 };
 
 exports.down = async function(knex) {
-  await knex.schema.dropTable('user');
-  await knex.schema.dropTable('provider');
-  await knex.schema.dropTable('pokemon');
-  await knex.schema.dropTable('image');
-  await knex.schema.dropTable('annotation');
-  await knex.schema.dropTable('coordinate');
+  const hasDbProviderTable = await knex.schema.hasTable('provider');
+  if (hasDbProviderTable) {
+    await knex.schema.dropTable('provider');
+  }
+  const hasDbCoordinateTable = await knex.schema.hasTable('coordinate');
+  if (hasDbCoordinateTable) {
+    await knex.schema.dropTable('coordinate');
+  }
+  const hasDbAnnotationTable = await knex.schema.hasTable('annotation');
+  if (hasDbAnnotationTable) {
+    await knex.schema.dropTable('annotation');
+  }
+  const hasDbUserTable = await knex.schema.hasTable('user');
+  if (hasDbUserTable) {
+    await knex.schema.dropTable('user');
+  }
+  const hasDbPokemonTable = await knex.schema.hasTable('pokemon');
+  if (hasDbPokemonTable) {
+    await knex.schema.dropTable('pokemon');
+  }
+  const hasDbImageTable = await knex.schema.hasTable('image');
+  if (hasDbImageTable) {
+    await knex.schema.dropTable('image');
+  }
 };
