@@ -1,7 +1,8 @@
-const annotationData = require('../seedsData/annotationData');
-const pokemonData = require('../seedsData/pokemonData');
-const userData = require('../seedsData/userData');
-const imageData = require('../seedsData/imageData');
+const annotationData = require('../seedData/annotationData');
+const coordinateData = require('../seedData/coordinateData');
+const pokemonData = require('../seedData/pokemonData');
+const userData = require('../seedData/userData');
+const imageData = require('../seedData/imageData');
 
 exports.seed = async function(knex) {
   // delete
@@ -24,13 +25,19 @@ exports.seed = async function(knex) {
 
   // insert annotations
   for (let i; i < imageIds.length; i++) {
-    const annotation = await knex('annotation').insert({
+    await knex('annotation').insert({
       ...annotationData[i],
       image_id: imageIds[i],
       pokemon_id: pokemonIds[i],
       user_id: userId,
     });
-    console.log(annotation);
+
+    for (let j; j < coordinateData[i].length; j++) {
+      await knex('coordinate').insert({
+        ...coordinateData[i][j],
+        annotation_id: annotationData[i].id,
+      });  
+    }
   }
 
   // await knex('image').insert();
