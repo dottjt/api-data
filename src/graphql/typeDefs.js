@@ -7,7 +7,7 @@ const typeDefs = `
 
     getImages: [Image]
     getNewImage(image_id: String): Image
-    getGallerySearch(searchText: String): [Image]
+    getGallerySearch(searchText: String, filterQuery: FilterQuery): [Image]
   }
 
   type Mutation {
@@ -93,6 +93,10 @@ const typeDefs = `
     pokemon_id: String
     name: String
     sprite: String
+  }
+
+  input FilterQuery {
+    sort: String
   }
 `;
 

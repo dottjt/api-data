@@ -35,7 +35,7 @@ const doesPokemonExist = async (_, { searchText }) => {
   return !!doesPokemonExist;
 }
 
-const getGallerySearch = async (_, { searchText }) => {
+const getGallerySearch = async (_, { searchText, filterQuery }) => {
   if(!searchText) {
     // get 5 random annotations.
 
